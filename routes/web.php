@@ -1,23 +1,19 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('listings', [
         'heading' => 'Latest Listings',
-        'listings' => [
-            [
-                'id' => 1,
-                'title' => "Listing One",
-                'description' => "Some dummy text, description 1"
-            ],
-            [
-                'id' => 2,
-                'title' => "Listing Two",
-                'description' => "Some dummy text, description 2"
-            ]
-        ]
+        'listings' => Listing::all()
+    ]);
+});
+
+Route::get('/listings/{id}', function($id) {
+    return view('listing', [
+        'listing' => Listing::find($id)
     ]);
 });
 
@@ -35,3 +31,4 @@ Route::get('/posts/{id}', function($id) {
 Route::get('/search', function(Request $request) {
     dd($request->name . " from " . $request->city);
 });
+
