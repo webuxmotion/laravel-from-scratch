@@ -7,3 +7,5 @@
 [Template Partials](https://youtu.be/MYyJ4PuL4pY?si=Q2wZ5uugA3QcWKjY&t=4743)
 
 [Tags Component](https://youtu.be/MYyJ4PuL4pY?si=8PufbuFo_ytBix20&t=5721)
+
+[Search Filter](https://youtu.be/MYyJ4PuL4pY?si=6KhPIYBj0L48iOAX&t=7055)

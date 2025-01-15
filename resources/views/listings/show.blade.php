@@ -1,6 +1,5 @@
-@extends('layout')
+<x-layout>
 
-@section('content')
 @include('partials._search')
 
 @if ($listing == null)
@@ -23,15 +22,9 @@
 
             <h3 class="text-2xl mb-2">{{$listing->title}}</h3>
             <div class="text-xl font-bold mb-4">Acme Corp</div>
-            <ul class="flex">
-                @foreach(explode(',', $listing->tags) as $tag)
-                    <li
-                        class="bg-black text-white rounded-xl px-3 py-1 mr-2"
-                    >
-                        <a href="#">{{$tag}}</a>
-                    </li>
-                @endforeach
-            </ul>
+
+            <x-listings-tags :tagsCsv="$listing->tags" />
+            
             <div class="text-lg my-4">
                 <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
             </div>
@@ -63,4 +56,4 @@
 </div>
 @endif
 
-@endsection
+</x-layout>
