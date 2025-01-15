@@ -1,3 +1,7 @@
+@extends('layout')
+
+@section('content')
+
 @if ($listing == null)
     Nothing Found
 @else
@@ -8,3 +12,5 @@
     </h2>
     <p>{{ $listing['description'] }}</p>
 @endif
+
+@endsection
