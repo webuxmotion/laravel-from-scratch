@@ -12,6 +12,7 @@ class Listing extends Model
     protected $fillable = [
         'title',
         'company',
+        'logo',
         'description',
         'tags',
         'location',
