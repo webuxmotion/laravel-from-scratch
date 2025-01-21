@@ -15,3 +15,5 @@
 [Alpine.js For Message Removal](https://youtu.be/MYyJ4PuL4pY?si=3s2r4ylJiVRb02vx&t=9194)
 
 [Edit Listing](https://youtu.be/MYyJ4PuL4pY?si=ujtkDfHPm61iElrw&t=10667)
+
+[Relationships](https://youtu.be/MYyJ4PuL4pY?si=TUi2OhkObu_lzDQ9&t=13912)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ListingController extends Controller
 {
@@ -49,5 +50,48 @@ class ListingController extends Controller
 
         return redirect('/')
             ->with('message', 'Your listing has been added!');
+    }
+
+    // Show Edit Form
+    public function edit(Listing $listing) {
+        return view('listings.edit', [
+            'listing' => $listing
+        ]);
+    }
+
+    // Update Listing Data
+    public function update(Request $request, Listing $listing) {
+
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required'],
+            'description' => 'required',
+            'tags' => 'required',
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email']
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $listing->update($formFields);
+
+        return redirect('/listings/' . $listing->id)
+            ->with('message', 'Listing updated successfully!');
+    }
+
+    // Delete Listing
+    public function destroy(Listing $listing) {
+        $listing->delete();
+
+        // Delete logo file
+        if ($listing->logo) {
+            Storage::disk('public')->delete($listing->logo);
+        }
+
+        return redirect('/')
+            ->with('message', 'Listing deleted successfully!');
     }
 }
