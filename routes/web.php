@@ -2,7 +2,25 @@
 
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
+
+/* WALLETS */
+// Show Wallets
+Route::get('/wallets', [WalletController::class, 'index']);
+
+// Show Create Form
+Route::get('/wallets/create', [WalletController::class, 'create']);
+
+// Store Wallet Data
+Route::post('/wallets', [WalletController::class, 'store']);
+
+// Show Edit Form
+Route::get('/wallets/{wallet}', [WalletController::class, 'edit']);
+
+// Update Wallet Data
+Route::put('/wallets/{wallet}', [WalletController::class, 'update']);
+
 
 // Show Listings
 Route::get('/', [ListingController::class, 'index']);
@@ -41,3 +59,4 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 // Log User In
 Route::post('/users/login', [UserController::class, 'authenticate']);
+
