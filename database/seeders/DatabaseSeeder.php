@@ -14,6 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $user = User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'john@gmail.com',
+            'password' => bcrypt('111111')
+        ]);
+
+        Listing::factory(6)->create([
+            'user_id' => $user->id
+        ]);
+
         // User::factory(10)->create();
 
         // User::factory()->create([
@@ -30,7 +40,5 @@ class DatabaseSeeder extends Seeder
         //     'website' => 'https://www.acme.com',
         //     'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima et illo reprehenderit quas possimus voluptas repudiandae cum expedita, eveniet aliquid, quam illum quaerat consequatur! Expedita ab consectetur tenetur delensiti?'
         // ]);
-
-        Listing::factory(6)->create();
     }
 }

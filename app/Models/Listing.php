@@ -13,6 +13,7 @@ class Listing extends Model
         'title',
         'company',
         'logo',
+        'user_id',
         'description',
         'tags',
         'location',
@@ -33,5 +34,10 @@ class Listing extends Model
                 ->orWhere('tags', 'like', '%' . $searchPhrase . '%')
                 ->orWhere('company', 'like', '%' . $searchPhrase . '%');
         }
+    }
+
+    // Relationship to User
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

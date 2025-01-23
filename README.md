@@ -17,3 +17,5 @@
 [Edit Listing](https://youtu.be/MYyJ4PuL4pY?si=ujtkDfHPm61iElrw&t=10667)
 
 [Relationships](https://youtu.be/MYyJ4PuL4pY?si=TUi2OhkObu_lzDQ9&t=13912)
+
+[Manage Listings Page](https://youtu.be/MYyJ4PuL4pY?si=RYtU3cOn6dBxRZOu&t=14781)

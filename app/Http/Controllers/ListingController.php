@@ -42,10 +42,14 @@ class ListingController extends Controller
             'email' => ['required', 'email']
         ]);
 
+        $formFields['user_id'] = auth()->id();
+
+        
+
         if ($request->hasFile('logo')) {
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
-
+        
         Listing::create($formFields);
 
         return redirect('/')
