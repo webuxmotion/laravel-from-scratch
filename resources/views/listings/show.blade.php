@@ -65,6 +65,7 @@
             <button type="submit" class="text-red-500">
                 <i class="fa-solid fa-trash"></i> Delete
             </button>
+        </form>
     </x-card>
 </div>
 @endif

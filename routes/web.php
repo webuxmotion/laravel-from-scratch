@@ -25,6 +25,10 @@ Route::put('/wallets/{wallet}', [WalletController::class, 'update']);
 // Show Listings
 Route::get('/', [ListingController::class, 'index']);
 
+// Manage Listings
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
+
+
 // Show Create Form
 Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
 
@@ -59,4 +63,5 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 // Log User In
 Route::post('/users/login', [UserController::class, 'authenticate']);
+
 

@@ -8,10 +8,10 @@
 
     <div class="z-10">
         <h1 class="text-6xl font-bold uppercase text-white">
-            Lara<span class="text-black">Gigs</span>
+            lala<span class="text-black">js</span>
         </h1>
-        <p class="text-2xl text-gray-200 font-bold my-4">
-            Find or post Laravel jobs & projects
+        <p class="text-2xl text-gray-200 font-bold my-4 max-w-md m-auto">
+            The book about how to start using javascript in 5 minutes
         </p>
         <div>
             <a
