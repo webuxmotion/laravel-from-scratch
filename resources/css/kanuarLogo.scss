@@ -1,0 +1,56 @@
+.kanuarLogo {
+    border: 2px solid black;
+    width: calc(140px * 1);
+    height: calc(90px * 1);
+    box-sizing: border-box;
+    position: relative;
+    background-color: white;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -1px;
+        height: 2px;
+        background: black;
+    }
+
+    &__text {
+        // center the text
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-weight: bold;
+
+        // make text transparent with black border
+        color: white;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        // letter spacing
+        letter-spacing: 3px;
+    }
+
+    &__topText {
+        position: absolute;
+        top: 3px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        margin-left: -3px;
+        font-size: 20px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    &__bottomText {
+        position: absolute;
+        bottom: 7px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        margin-left: -3px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+}

@@ -21,6 +21,12 @@
             @endforeach
 
             <div id="calculator"></div>
+
+            <div id="kanuar_logo"></div>
+
+            <div>
+                Premium Ukrainian Clothing Brand with dynamic and functional logo.
+            </div>
         @endif
 
     </div>
