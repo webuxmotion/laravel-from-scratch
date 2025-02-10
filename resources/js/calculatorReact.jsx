@@ -91,5 +91,9 @@ function Calculator() {
 }
 
 const domNode = document.getElementById("calculator");
-const root = createRoot(domNode);
-root.render(<Calculator />);
+
+if (domNode) {
+    const root = createRoot(domNode);
+    root.render(<Calculator />);
+}
+

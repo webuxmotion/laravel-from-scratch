@@ -1,9 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import './kanuarLogo.scss';
+@use './kanuarLogo.scss';
 
 body {
-    background: rgb(230, 230, 230) !important;
+    background: rgb(252, 252, 252) !important;
 }
