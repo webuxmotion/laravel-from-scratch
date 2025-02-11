@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Listing;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,10 +30,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'ban@gmail.com',
             'password' => bcrypt('111111')
         ]);
-
+        
         Listing::factory(3)->create([
             'user_id' => $user2->id
         ]);
+
+        $brand_images = ['abt-1.jpg', 'abt-2.jpg', 'abt-3.jpg', 'seiko.png', 'diesel.png'];
+        foreach ($brand_images as $image) {
+            Brand::factory()->create([
+                'img' => $image
+            ]);
+        }
 
         // User::factory(10)->create();
 
