@@ -27,14 +27,17 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->default(0);
             // old_price
             $table->decimal('old_price', 10, 2)->default(0);
-            // status, enum 0 or 1; default 1
-            $table->enum('status', [0, 1])->default(1);
+            // status
+            $table->boolean('status')->default(0);
             // keywords
             $table->string('keywords')->nullable();
             // description
             $table->string('description')->nullable();
             // img, default no_image.jpg
             $table->string('img')->default('no_image.jpg');
+            // hit
+            $table->boolean('hit')->default(0);
+            
             $table->timestamps();
         });
     }

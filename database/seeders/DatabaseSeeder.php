@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Brand;
-use App\Models\Listing;
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,48 +15,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->create([
-            'name' => 'John Doe',
-            'email' => 'john@gmail.com',
-            'password' => bcrypt('111111')
-        ]);
+        $this->createBrands();
+        $this->createCategories();
+        $this->createProducts();
+    }
 
-        Listing::factory(3)->create([
-            'user_id' => $user->id
-        ]);
-
-        $user2 = User::factory()->create([
-            'name' => 'Ban Doe',
-            'email' => 'ban@gmail.com',
-            'password' => bcrypt('111111')
-        ]);
-        
-        Listing::factory(3)->create([
-            'user_id' => $user2->id
-        ]);
-
+    public function createBrands(): void
+    {
         $brand_images = ['abt-1.jpg', 'abt-2.jpg', 'abt-3.jpg', 'seiko.png', 'diesel.png'];
         foreach ($brand_images as $image) {
             Brand::factory()->create([
                 'img' => $image
             ]);
         }
+    }
 
-        // User::factory(10)->create();
+    public function createCategories(): void
+    {
+        Category::factory(20)->create();
+    }
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+    public function createProducts(): void
+    {
+        $product_images = ['p1.png', 'p2.png', 'p3.png', 'p4.png', 'p5.png', 'p6.png', 'p7.png', 'p8.png'];
+        foreach ($product_images as $image) {
+            Product::factory()->create([
+                'img' => $image
+            ]);
+        }
+        Product::factory(100)->create();
+    }
+    
+    public function createUsers(): void
+    {
+        User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'john@gmail.com',
+            'password' => bcrypt('111111')
+        ]);
 
-        // Listing::create([
-        //     'title' => 'Laravel Senior Developer', 
-        //     'tags' => 'laravel, javascript',
-        //     'company' => 'Acme Corp',
-        //     'location' => 'Boston, MA',
-        //     'email' => 'email1@email.com',
-        //     'website' => 'https://www.acme.com',
-        //     'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima et illo reprehenderit quas possimus voluptas repudiandae cum expedita, eveniet aliquid, quam illum quaerat consequatur! Expedita ab consectetur tenetur delensiti?'
-        // ]);
+        User::factory()->create([
+            'name' => 'Ban Doe',
+            'email' => 'ban@gmail.com',
+            'password' => bcrypt('111111')
+        ]);
     }
 }
