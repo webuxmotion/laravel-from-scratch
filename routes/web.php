@@ -5,6 +5,8 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 /* WALLETS */
 // Show Wallets
@@ -66,3 +68,10 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 Route::post('/users/login', [UserController::class, 'authenticate']);
 
 
+Route::post('/change-currency', function (Request $request) {
+    $currency = $request->currency;
+
+    setcookie('currency', $currency, time()+3600);
+    
+    return back();
+})->name('currency.change');

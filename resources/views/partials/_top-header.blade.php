@@ -3,6 +3,10 @@
     <div class="container">
         <div class="top-header-main">
             <div class="col-md-6 top-header-left">
+
+                {{-- @include('widgets.currency-selector') --}}
+                <x-currency-selector />
+                
                 <div class="drop">
                     <div class="box">
                         <select tabindex="4" class="dropdown drop">
