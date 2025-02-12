@@ -28,18 +28,22 @@ class ProductFactory extends Factory
         // get random id
         $brand_id = fake()->randomElement($brand_ids);
 
+        $price = fake()->randomFloat(2, 1, 10000);
+        // old_price must be more than price
+        $old_price = fake()->randomFloat(2, $price, 10000);
+
         return [
             'category_id' => $category_id, // assuming a Category factory exists
             'brand_id' => $brand_id, // assuming a Brand factory exists
             'title' => fake()->words(3, true),
             'alias' => fake()->unique()->slug(),
             'content' => fake()->paragraph(),
-            'price' => fake()->randomFloat(2, 1, 1000),
-            'old_price' => fake()->randomFloat(2, 1, 1000),
+            'price' => $price,
+            'old_price' => $old_price,
             'status' => fake()->randomElement([0, 1]),
             'keywords' => fake()->words(5, true),
             'description' => fake()->sentence(),
-            'img' => 'no_image.jpg',
+            'img' => 'no_image.png',
             'hit' => fake()->randomElement([0, 1])
         ];
     }

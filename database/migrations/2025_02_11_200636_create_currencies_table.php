@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('symbol_right', 10);
             // value, decimal 15,2
             $table->decimal('value', 15, 2);
-            // base, enum 0, 1
-            $table->enum('base', [0, 1]);
+            // base, boolean
+            $table->boolean('base');
             
             $table->timestamps();
         });

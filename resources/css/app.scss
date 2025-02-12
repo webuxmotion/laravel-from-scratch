@@ -3,3 +3,12 @@
 body {
     background: rgb(252, 252, 252) !important;
 }
+
+.product-one {
+    display: flex;
+    flex-wrap: wrap;
+
+    & .product-left {
+        margin-bottom: 20px;
+    }
+}

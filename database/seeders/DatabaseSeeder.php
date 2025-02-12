@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->createBrands();
         $this->createCategories();
         $this->createProducts();
+
+        // run CurrencySeeder
+        $this->call(CurrencySeeder::class);
     }
 
     public function createBrands(): void
@@ -37,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
     public function createProducts(): void
     {
-        $product_images = ['p1.png', 'p2.png', 'p3.png', 'p4.png', 'p5.png', 'p6.png', 'p7.png', 'p8.png'];
+        $product_images = ['p-1.png', 'p-2.png', 'p-3.png', 'p-4.png', 'p-5.png', 'p-6.png', 'p-7.png', 'p-8.png'];
         foreach ($product_images as $image) {
             Product::factory()->create([
                 'img' => $image
