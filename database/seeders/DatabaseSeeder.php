@@ -35,7 +35,18 @@ class DatabaseSeeder extends Seeder
 
     public function createCategories(): void
     {
-        Category::factory(20)->create();
+        Category::factory(5)->create([
+            'parent_id' => null
+        ]);
+
+        $cats = Category::factory(3)->create([
+            'parent_id' => 4
+        ]);
+
+        Category::factory(3)->create([
+            'parent_id' => $cats[1]->id
+        ]);
+        
     }
 
     public function createProducts(): void
