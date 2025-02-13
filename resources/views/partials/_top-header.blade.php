@@ -3,18 +3,11 @@
     <div class="container">
         <div class="top-header-main">
             <div class="col-md-6 top-header-left">
-
-                {{-- @include('widgets.currency-selector') --}}
-                <x-currency-selector />
+                
                 
                 <div class="drop">
-                    <div class="box">
-                        <select tabindex="4" class="dropdown drop">
-                            <option value="" class="label">Dollar :</option>
-                            <option value="1">Dollar</option>
-                            <option value="2">Euro</option>
-                        </select>
-                    </div>
+                    <x-currency-selector />
+
                     <div class="box1">
                         <select tabindex="4" class="dropdown">
                             <option value="" class="label">English :</option>

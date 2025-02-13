@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\GlobalDataService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // register WidgetServiceProvider
+        $this->app->singleton(GlobalDataService::class, function () {
+            return new GlobalDataService();
+        });
     }
 
     /**

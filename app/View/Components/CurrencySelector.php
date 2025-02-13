@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use App\Models\Currency;
+
 
 class CurrencySelector extends Component
 {
@@ -12,12 +12,10 @@ class CurrencySelector extends Component
 
     public function __construct()
     {
-        $currencies = Currency::orderBy('base', 'desc')->get();
-        $selectedCurrency = isset($_COOKIE['currency']) ? htmlspecialchars($_COOKIE['currency']) : 'USD';
+        $globalData = globalData();
 
-        // Fetch currencies from the database
-        $this->currencies = $currencies;
-        $this->selectedCurrency = $selectedCurrency;
+        $this->currencies = $globalData->getData()['currencies'];
+        $this->selectedCurrency = $globalData->getData()['selectedCurrency'];
     }
 
     public function render()

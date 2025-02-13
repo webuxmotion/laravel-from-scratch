@@ -80,10 +80,10 @@
                                     <h3>{{ $hit->title }}</h3>
                                     <p>Explore Now</p>
                                     <h4><a class="add-to-cart-link" href="/cart/add?id={{ $hit->id }}"><i></i></a>
-                                        <span class=" item_price">$
-                                            {{ $hit->price }}</span>
+                                        <span class=" item_price">{{ $curr->symbol_left}}
+                                            {{ $hit->price * $curr->value }}</span>
 										@if ($hit->old_price)
-											<small><del>${{ $hit->old_price }}</del></small>
+											<small><del>${{ $hit->old_price * $curr->value }}</del></small>
 										@endif
 										</h4>
                                 </div>
