@@ -16,11 +16,16 @@ class ProductController extends Controller
 
         $relatedProducts = $product->relatedProducts->pluck('relatedProduct');
 
+        $gallery = $product->galleries->isEmpty()
+            ? null
+            : $product->galleries->pluck('img');
+
         return view('products.show', [
             'product' => $product,
             'curr' => getCurr(),
             'category' => $category,
-            'related' => $relatedProducts
+            'related' => $relatedProducts,
+            'gallery' => $gallery
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\RelatedProduct;
 use App\Models\User;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencySeeder::class);
 
         $this->createRelatedProducts();
+        $this->createGalleries();
     }
 
     public function createBrands(): void
@@ -60,6 +62,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         Product::factory(100)->create();
+
+        Product::orderBy('id')->first()?->update(['hit' => 1]);
     }
 
     public function createUsers(): void
@@ -97,6 +101,18 @@ class DatabaseSeeder extends Seeder
                     'related_product_id' => $related->id,
                 ]);
             }
+        }
+    }
+
+    public function createGalleries()
+    {
+        $images = ['exo-1.png', 'exo-2.png', 'exo-3.png'];
+
+        foreach ($images as $image) {
+            Gallery::create([
+                'product_id' => 1,
+                'img' => $image
+            ]);
         }
     }
 }

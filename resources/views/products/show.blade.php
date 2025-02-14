@@ -10,18 +10,19 @@
                         <div class="col-md-5 single-top-left">
                             <div class="flexslider">
                                 <ul class="slides">
-                                    <li data-thumb="/images/{{$product->img}}">
-                                        <div class="thumb-image"> <img src="/images/{{$product->img}}" data-imagezoom="true"
-                                                class="img-responsive" alt="" /> </div>
+                                    <li data-thumb="/images/{{ $product->img }}">
+                                        <div class="thumb-image"> <img src="/images/{{ $product->img }}"
+                                                data-imagezoom="true" class="img-responsive" alt="" /> </div>
                                     </li>
-                                    <li data-thumb="/images/s-2.jpg">
-                                        <div class="thumb-image"> <img src="/images/s-2.jpg" data-imagezoom="true"
-                                                class="img-responsive" alt="" /> </div>
-                                    </li>
-                                    <li data-thumb="/images/s-3.jpg">
-                                        <div class="thumb-image"> <img src="/images/s-3.jpg" data-imagezoom="true"
-                                                class="img-responsive" alt="" /> </div>
-                                    </li>
+                                    @if ($gallery)
+                                        @foreach ($gallery as $img)
+                                            <li data-thumb="/images/{{ $img }}">
+                                                <div class="thumb-image"> <img src="/images/{{ $img }}"
+                                                        data-imagezoom="true" class="img-responsive" alt="" />
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
                             <!-- FlexSlider -->
@@ -192,10 +193,11 @@
                             @foreach ($related as $item)
                                 <div class="col-md-4 product-left p-left">
                                     <div class="product-main simpleCart_shelfItem">
-                                        <a href="/products/{{$item->alias}}" class="mask"><img class="img-responsive zoom-img"
-                                                src="/images/{{$item->img}}" alt="" /></a>
+                                        <a href="/products/{{ $item->alias }}" class="mask"><img
+                                                class="img-responsive zoom-img" src="/images/{{ $item->img }}"
+                                                alt="" /></a>
                                         <div class="product-bottom">
-                                            <h3>{{$item->title}}</h3>
+                                            <h3>{{ $item->title }}</h3>
                                             <p>Explore Now</p>
                                             <h4><a class="item_add" href="#"><i></i></a> <span
                                                     class=" item_price">{{ $curr->symbol_left }}
