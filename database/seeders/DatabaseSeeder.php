@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\RelatedProduct;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
 
         // run CurrencySeeder
         $this->call(CurrencySeeder::class);
+
+        $this->createRelatedProducts();
     }
 
     public function createBrands(): void
@@ -46,7 +49,6 @@ class DatabaseSeeder extends Seeder
         Category::factory(3)->create([
             'parent_id' => $cats[1]->id
         ]);
-        
     }
 
     public function createProducts(): void
@@ -59,7 +61,7 @@ class DatabaseSeeder extends Seeder
         }
         Product::factory(100)->create();
     }
-    
+
     public function createUsers(): void
     {
         User::factory()->create([
@@ -73,5 +75,28 @@ class DatabaseSeeder extends Seeder
             'email' => 'ban@gmail.com',
             'password' => bcrypt('111111')
         ]);
+    }
+
+    public function createRelatedProducts(): void
+    {
+        // Get all products
+        $products = Product::all();
+
+        // For each product, attach 3 random related products
+        foreach ($products as $product) {
+            // Get 3 random products excluding the current one
+            $relatedProducts = Product::where('id', '!=', $product->id)
+                ->inRandomOrder()
+                ->limit(3)
+                ->get();
+
+            // Seed related products
+            foreach ($relatedProducts as $related) {
+                RelatedProduct::create([
+                    'product_id' => $product->id,
+                    'related_product_id' => $related->id,
+                ]);
+            }
+        }
     }
 }

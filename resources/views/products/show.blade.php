@@ -1,5 +1,5 @@
 <x-layout>
-    
+
 
     <!--start-single-->
     <div class="single contact">
@@ -10,8 +10,8 @@
                         <div class="col-md-5 single-top-left">
                             <div class="flexslider">
                                 <ul class="slides">
-                                    <li data-thumb="/images/s-1.jpg">
-                                        <div class="thumb-image"> <img src="/images/s-1.jpg" data-imagezoom="true"
+                                    <li data-thumb="/images/{{$product->img}}">
+                                        <div class="thumb-image"> <img src="/images/{{$product->img}}" data-imagezoom="true"
                                                 class="img-responsive" alt="" /> </div>
                                     </li>
                                     <li data-thumb="/images/s-2.jpg">
@@ -52,17 +52,14 @@
                                     </ul>
                                     <div class="review">
                                         <a href="#"> 1 customer review </a>
-
                                     </div>
                                     <div class="clearfix"> </div>
                                 </div>
 
-                                <h5 class="item_price">{{ $curr->symbol_left }} {{ showPrice($product->price * $curr->value) }}
+                                <h5 class="item_price">{{ $curr->symbol_left }}
+                                    {{ showPrice($product->price * $curr->value) }}
                                 </h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                                    minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                                    aliquip ex ea commodo consequat.</p>
+                                <p>{{ $product->content }}</p>
                                 <div class="available">
                                     <ul>
                                         <li>Color
@@ -84,14 +81,20 @@
                                     </ul>
                                 </div>
                                 <ul class="tag-men">
-                                    <li><span>TAG</span>
-                                        <span class="women1">: Women,</span>
+                                    <li><span>Category</span>
+                                        <span class="women1">: <a
+                                                href="/category/{{ $category->alias }}">{{ $category->title }}</a></span>
                                     </li>
                                     <li><span>SKU</span>
                                         <span class="women1">: CK09</span>
                                     </li>
                                 </ul>
-                                <a href="#" class="add-cart item_add">ADD TO CART</a>
+                                <div class="quantity">
+                                    <input value="1" type="number" name="quantity" id="" size="4"
+                                        min="1" step="1">
+                                </div>
+                                <a id="productAdd" href="cart/add?id={{ $product->id }}"
+                                    class="add-cart item_add js-add-to-cart">ADD TO CART</a>
 
                             </div>
                         </div>
@@ -169,7 +172,8 @@
                                             magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud
                                             exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
                                             consequat.</a></li>
-                                    <li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in hendrerit
+                                    <li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in
+                                            hendrerit
                                             in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
                                             nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
                                             praesent luptatum zzril delenit augue duis dolore</a></li>
@@ -182,52 +186,30 @@
                         </ul>
                     </div>
                     <div class="latestproducts">
+                        <h3>З цим товаром часто купують:</h3>
                         <div class="product-one">
-                            <div class="col-md-4 product-left p-left">
-                                <div class="product-main simpleCart_shelfItem">
-                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img"
-                                            src="/images/p-1.png" alt="" /></a>
-                                    <div class="product-bottom">
-                                        <h3>Smart Watches</h3>
-                                        <p>Explore Now</p>
-                                        <h4><a class="item_add" href="#"><i></i></a> <span
-                                                class=" item_price">$ 329</span></h4>
-                                    </div>
-                                    <div class="srch">
-                                        <span>-50%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-left p-left">
-                                <div class="product-main simpleCart_shelfItem">
-                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img"
-                                            src="/images/p-2.png" alt="" /></a>
-                                    <div class="product-bottom">
-                                        <h3>Smart Watches</h3>
-                                        <p>Explore Now</p>
-                                        <h4><a class="item_add" href="#"><i></i></a> <span
-                                                class=" item_price">$ 329</span></h4>
-                                    </div>
-                                    <div class="srch">
-                                        <span>-50%</span>
+
+                            @foreach ($related as $item)
+                                <div class="col-md-4 product-left p-left">
+                                    <div class="product-main simpleCart_shelfItem">
+                                        <a href="/products/{{$item->alias}}" class="mask"><img class="img-responsive zoom-img"
+                                                src="/images/{{$item->img}}" alt="" /></a>
+                                        <div class="product-bottom">
+                                            <h3>{{$item->title}}</h3>
+                                            <p>Explore Now</p>
+                                            <h4><a class="item_add" href="#"><i></i></a> <span
+                                                    class=" item_price">{{ $curr->symbol_left }}
+                                                    {{ showPrice($item->price * $curr->value) }}
+                                                </span></h4>
+                                        </div>
+                                        <div class="srch">
+                                            <span>-50%</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 product-left p-left">
-                                <div class="product-main simpleCart_shelfItem">
-                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img"
-                                            src="/images/p-3.png" alt="" /></a>
-                                    <div class="product-bottom">
-                                        <h3>Smart Watches</h3>
-                                        <p>Explore Now</p>
-                                        <h4><a class="item_add" href="#"><i></i></a> <span
-                                                class=" item_price">$ 329</span></h4>
-                                    </div>
-                                    <div class="srch">
-                                        <span>-50%</span>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
+
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -342,24 +324,24 @@
 
     <script type="text/javascript">
         $(function() {
-        
+
             var menu_ul = $('.menu_drop > li > ul'),
-                   menu_a  = $('.menu_drop > li > a');
-            
+                menu_a = $('.menu_drop > li > a');
+
             menu_ul.hide();
-        
+
             menu_a.click(function(e) {
                 e.preventDefault();
-                if(!$(this).hasClass('active')) {
+                if (!$(this).hasClass('active')) {
                     menu_a.removeClass('active');
                     menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true,true).slideDown('normal');
+                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
                 } else {
                     $(this).removeClass('active');
-                    $(this).next().stop(true,true).slideUp('normal');
+                    $(this).next().stop(true, true).slideUp('normal');
                 }
             });
-        
+
         });
     </script>
 </x-layout>
