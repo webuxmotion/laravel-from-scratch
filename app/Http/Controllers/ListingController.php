@@ -19,7 +19,7 @@ class ListingController extends Controller
     }
 
     public function show(Listing $listing) {
-        return view('listings.show', [
+        return view('listings.show', [ 
             'listing' => $listing
         ]);
     }

@@ -21,3 +21,19 @@ if (!function_exists('globalData')) {
         return app(GlobalDataService::class);
     }
 }
+
+if (!function_exists('getCurr')) {
+    
+    function getCurr()
+    {
+        return globalData()->getData()['selectedCurrency'];
+    }
+}
+
+if (!function_exists('showPrice')) {
+    
+    function showPrice($price)
+    {
+        return number_format($price, 2, '.', '');
+    }
+}

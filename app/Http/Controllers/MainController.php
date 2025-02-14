@@ -15,12 +15,10 @@ class MainController extends Controller
         // get hits products
         $hits = Product::where('hit', 1)->limit(8)->get();
 
-        $curr = globalData()->getData()['selectedCurrency'];
-
         return view('main.index', [
             'brands' => $brands,
             'hits' => $hits,
-            'curr' => $curr
+            'curr' =>  getCurr()
         ]);
     }
 }

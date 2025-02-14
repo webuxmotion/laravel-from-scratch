@@ -35,7 +35,7 @@ class CurrencySeeder extends Seeder
                 'code' => 'EUR',
                 'symbol_left' => '€',
                 'symbol_right' => '',
-                'value' => 1.03,
+                'value' => 0.96,
                 'base' => 0,
             ],
         ];

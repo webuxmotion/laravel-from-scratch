@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+
+
+Route::get('/products/{product:alias}', [ProductController::class, 'show']);
 
 /* WALLETS */
 // Show Wallets
@@ -75,3 +78,5 @@ Route::post('/change-currency', function (Request $request) {
     
     return back();
 })->name('currency.change');
+
+

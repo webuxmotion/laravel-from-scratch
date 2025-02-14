@@ -5,9 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="images/favicon.ico" />
+    <link rel="icon" href="/images/favicon.ico" />
 
-    <title>SHOP</title>
+    @php
+        $meta = globalData()->get('meta');
+    @endphp
+
+    <title>{{ $meta && $meta->title ? $meta->title : "SHOP" }}</title>
 
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
@@ -18,10 +22,11 @@
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords"
-        content="Luxury Watches Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <meta name="description"
+        content="{{ $meta && $meta->description ? $meta->description : "Shop description" }}" />
+        <meta name="keywords"
+        content="{{ $meta && $meta->keywords ? $meta->keywords : "Shop keywords" }}" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--start-menu-->
     <script src="/js/simpleCart.min.js"></script>
     <link href="/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
