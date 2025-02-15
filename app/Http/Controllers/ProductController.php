@@ -16,16 +16,21 @@ class ProductController extends Controller
 
         $relatedProducts = $product->relatedProducts->pluck('relatedProduct');
 
+        $product->setRecentlyViewed($product->id);
+
         $gallery = $product->galleries->isEmpty()
             ? null
             : $product->galleries->pluck('img');
+
+        $recentlyViewed = $product->getRecentlyViewed();
 
         return view('products.show', [
             'product' => $product,
             'curr' => getCurr(),
             'category' => $category,
             'related' => $relatedProducts,
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'recently' => $recentlyViewed
         ]);
     }
 }
