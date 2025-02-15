@@ -16,9 +16,15 @@ if (!function_exists('globalData')) {
      *
      * @return GlobalDataService
      */
-    function globalData(): GlobalDataService
+    function globalData($key = '')
     {
-        return app(GlobalDataService::class);
+        $instance = app(GlobalDataService::class);
+
+        if ($key) {
+            return $instance->get($key);
+        }
+
+        return $instance;
     }
 }
 

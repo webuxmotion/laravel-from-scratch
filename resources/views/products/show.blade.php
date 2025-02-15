@@ -1,5 +1,6 @@
 <x-layout>
 
+    <x-breadcrumbs categoryId="{{ $category->id }}" title="{{ $product->title }}" />
 
     <!--start-single-->
     <div class="single contact">
@@ -15,13 +16,13 @@
                                                 data-imagezoom="true" class="img-responsive" alt="" /> </div>
                                     </li>
                                     @if ($gallery)
-                                    @foreach ($gallery as $img)
-                                    <li data-thumb="/images/{{ $img }}">
-                                        <div class="thumb-image"> <img src="/images/{{ $img }}"
-                                                data-imagezoom="true" class="img-responsive" alt="" />
-                                        </div>
-                                    </li>
-                                    @endforeach
+                                        @foreach ($gallery as $img)
+                                            <li data-thumb="/images/{{ $img }}">
+                                                <div class="thumb-image"> <img src="/images/{{ $img }}"
+                                                        data-imagezoom="true" class="img-responsive" alt="" />
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     @endif
                                 </ul>
                             </div>
@@ -191,24 +192,24 @@
                         <div class="product-one">
 
                             @foreach ($related as $item)
-                            <div class="col-md-4 product-left p-left">
-                                <div class="product-main simpleCart_shelfItem">
-                                    <a href="/products/{{ $item->alias }}" class="mask"><img
-                                            class="img-responsive zoom-img" src="/images/{{ $item->img }}"
-                                            alt="" /></a>
-                                    <div class="product-bottom">
-                                        <h3>{{ $item->title }}</h3>
-                                        <p>Explore Now</p>
-                                        <h4><a class="item_add" href="#"><i></i></a> <span
-                                                class=" item_price">{{ $curr->symbol_left }}
-                                                {{ showPrice($item->price * $curr->value) }}
-                                            </span></h4>
-                                    </div>
-                                    <div class="srch">
-                                        <span>-50%</span>
+                                <div class="col-md-4 product-left p-left">
+                                    <div class="product-main simpleCart_shelfItem">
+                                        <a href="/products/{{ $item->alias }}" class="mask"><img
+                                                class="img-responsive zoom-img" src="/images/{{ $item->img }}"
+                                                alt="" /></a>
+                                        <div class="product-bottom">
+                                            <h3>{{ $item->title }}</h3>
+                                            <p>Explore Now</p>
+                                            <h4><a class="item_add" href="#"><i></i></a> <span
+                                                    class=" item_price">{{ $curr->symbol_left }}
+                                                    {{ showPrice($item->price * $curr->value) }}
+                                                </span></h4>
+                                        </div>
+                                        <div class="srch">
+                                            <span>-50%</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
 
 
@@ -216,35 +217,35 @@
                         </div>
                     </div>
                     @if ($recently)
-                    <div class="latestproducts">
-                        <h3>Переглянуті товари:</h3>
-                        <div class="product-one">
+                        <div class="latestproducts">
+                            <h3>Переглянуті товари:</h3>
+                            <div class="product-one">
 
-                            @foreach ($recently as $item)
-                            <div class="col-md-4 product-left p-left">
-                                <div class="product-main simpleCart_shelfItem">
-                                    <a href="/products/{{ $item->alias }}" class="mask"><img
-                                            class="img-responsive zoom-img" src="/images/{{ $item->img }}"
-                                            alt="" /></a>
-                                    <div class="product-bottom">
-                                        <h3>{{ $item->title }}</h3>
-                                        <p>Explore Now</p>
-                                        <h4><a class="item_add" href="#"><i></i></a> <span
-                                                class=" item_price">{{ $curr->symbol_left }}
-                                                {{ showPrice($item->price * $curr->value) }}
-                                            </span></h4>
+                                @foreach ($recently as $item)
+                                    <div class="col-md-4 product-left p-left">
+                                        <div class="product-main simpleCart_shelfItem">
+                                            <a href="/products/{{ $item->alias }}" class="mask"><img
+                                                    class="img-responsive zoom-img" src="/images/{{ $item->img }}"
+                                                    alt="" /></a>
+                                            <div class="product-bottom">
+                                                <h3>{{ $item->title }}</h3>
+                                                <p>Explore Now</p>
+                                                <h4><a class="item_add" href="#"><i></i></a> <span
+                                                        class=" item_price">{{ $curr->symbol_left }}
+                                                        {{ showPrice($item->price * $curr->value) }}
+                                                    </span></h4>
+                                            </div>
+                                            <div class="srch">
+                                                <span>-50%</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="srch">
-                                        <span>-50%</span>
-                                    </div>
-                                </div>
+                                @endforeach
+
+
+                                <div class="clearfix"></div>
                             </div>
-                            @endforeach
-
-
-                            <div class="clearfix"></div>
                         </div>
-                    </div>
                     @endif
 
                 </div>
