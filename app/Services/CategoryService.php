@@ -12,9 +12,15 @@ class CategoryService
     // Get categories from cache or database
     public function getCategories()
     {
-        return Cache::remember($this->cacheKey, now()->addHours(24), function () {
-            return Category::all();
-        });
+        $categories = Cache::get('categories');
+
+        if (!$categories) {
+            // Якщо кеш порожній, оновлюємо його
+            $categories = Category::all();
+            Cache::put($this->cacheKey, $categories, 60);
+        }
+
+        return $categories;
     }
 
     // Clear cache if needed (e.g., after category updates)

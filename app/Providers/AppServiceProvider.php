@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\CategoryService;
 use App\Services\GlobalDataService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,10 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(CategoryService $categoryService): void
     {
-        // Get categories once and share globally
-        $categories = $categoryService->getCategories();
+        if (Schema::hasTable('categories')) {
+            // Get categories once and share globally
+            $categories = $categoryService->getCategories();
 
-        globalData()->setData('categories', $categories);
+            globalData()->setData('categories', $categories);
+        }
         // Disable mass assignment protection
         Model::unguard();
     }

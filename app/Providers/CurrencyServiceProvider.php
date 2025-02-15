@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Currency;
+use Illuminate\Support\Facades\Schema;
 
 class CurrencyServiceProvider extends ServiceProvider
 {
@@ -20,18 +21,20 @@ class CurrencyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $currencies = Currency::orderBy('base', 'desc')->get();
-       
-        $selectedCurrencyCode = isset($_COOKIE['currency']) ? htmlspecialchars($_COOKIE['currency']) : 'USD';
-        $selectedCurrency = $currencies->firstWhere('code', $selectedCurrencyCode);
+        if (Schema::hasTable('currencies')) {
+            $currencies = Currency::orderBy('base', 'desc')->get();
 
-        if (!$selectedCurrency) {
-            $selectedCurrency = $currencies->firstWhere('code', 'USD');
+            $selectedCurrencyCode = isset($_COOKIE['currency']) ? htmlspecialchars($_COOKIE['currency']) : 'USD';
+            $selectedCurrency = $currencies->firstWhere('code', $selectedCurrencyCode);
+
+            if (!$selectedCurrency) {
+                $selectedCurrency = $currencies->firstWhere('code', 'USD');
+            }
+
+            $globalData = globalData();
+
+            $globalData->setData('currencies', $currencies);
+            $globalData->setData('selectedCurrency', $selectedCurrency);
         }
-
-        $globalData = globalData();
-
-        $globalData->setData('currencies', $currencies);
-        $globalData->setData('selectedCurrency', $selectedCurrency);
     }
 }
