@@ -59,29 +59,30 @@
                                 </div>
 
                                 <h5 class="item_price">{{ $curr->symbol_left }}
-                                    {{ showPrice($product->price * $curr->value) }}
+                                    <span class="js-base-price" data-base-price="{{ showPrice($product->price * $curr->value) }}">{{ showPrice($product->price * $curr->value) }}</span>
                                 </h5>
                                 <p>{{ $product->content }}</p>
-                                <div class="available">
-                                    <ul>
-                                        <li>Color
-                                            <select>
-                                                <option>Silver</option>
-                                                <option>Black</option>
-                                                <option>Dark Black</option>
-                                                <option>Red</option>
-                                            </select>
-                                        </li>
-                                        <li class="size-in">Size<select>
-                                                <option>Large</option>
-                                                <option>Medium</option>
-                                                <option>small</option>
-                                                <option>Large</option>
-                                                <option>small</option>
-                                            </select></li>
-                                        <div class="clearfix"> </div>
-                                    </ul>
-                                </div>
+                                @unless ($mods->isEmpty())
+                                    <div class="available">
+                                        <ul>
+                                            <li>Color
+                                                <select>
+                                                    <option>Choose color</option>
+                                                    @foreach ($mods as $item)
+                                                        <option
+                                                            data-title="{{$item->title}}"
+                                                            data-price="{{ showPrice($item->price * $curr->value) }}"
+                                                            value="{{ $item->id}}"
+                                                        >{{ $item->title }} - {{ $curr->symbol_left }} {{ showPrice($item->price * $curr->value) }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </li>
+
+                                            <div class="clearfix"> </div>
+                                        </ul>
+                                    </div>
+                                @endunless
+
                                 <ul class="tag-men">
                                     <li><span>Category</span>
                                         <span class="women1">: <a

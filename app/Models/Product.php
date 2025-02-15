@@ -64,4 +64,9 @@ class Product extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+    public function modifications()
+    {
+        return $this->hasMany(Modification::class);
+    }
 }

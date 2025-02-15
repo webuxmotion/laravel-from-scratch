@@ -10,13 +10,13 @@ class ProductController extends Controller
     {
         $this->setMeta("Product: " . $product->title, $product->description, $product->keywords);
 
+        $product->setRecentlyViewed($product->id);
+
         $category = globalData()
             ->get('categories')
             ->firstWhere('id', $product->category_id);
 
         $relatedProducts = $product->relatedProducts->pluck('relatedProduct');
-
-        $product->setRecentlyViewed($product->id);
 
         $gallery = $product->galleries->isEmpty()
             ? null
@@ -24,13 +24,16 @@ class ProductController extends Controller
 
         $recentlyViewed = $product->getRecentlyViewed();
 
+        $mods = $product->modifications;
+
         return view('products.show', [
             'product' => $product,
-            'curr' => getCurr(),
             'category' => $category,
             'related' => $relatedProducts,
             'gallery' => $gallery,
-            'recently' => $recentlyViewed
+            'recently' => $recentlyViewed,
+            'mods' => $mods,
+            'curr' => getCurr()
         ]);
     }
 }

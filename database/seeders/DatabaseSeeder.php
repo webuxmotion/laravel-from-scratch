@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Gallery;
+use App\Models\Modification;
 use App\Models\Product;
 use App\Models\RelatedProduct;
 use App\Models\User;
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $this->createRelatedProducts();
         $this->createGalleries();
+        $this->createModifications();
     }
 
     public function createBrands(): void
@@ -112,6 +114,26 @@ class DatabaseSeeder extends Seeder
             Gallery::create([
                 'product_id' => 1,
                 'img' => $image
+            ]);
+        }
+    }
+
+    public function createModifications() 
+    {
+        $mods = [
+            (object) ['id' => 1, 'color' => 'Red', 'price' => 245],
+            (object) ['id' => 1, 'color' => 'Blue', 'price' => 380],
+            (object) ['id' => 1, 'color' => 'Green', 'price' => 120],
+            (object) ['id' => 1, 'color' => 'Yellow', 'price' => 310],
+            (object) ['id' => 2, 'color' => 'Purple', 'price' => 190],
+            (object) ['id' => 2, 'color' => 'Orange', 'price' => 275],
+        ];
+
+        foreach ($mods as $item) {
+            Modification::create([
+                'product_id' => $item->id,
+                'title' => $item->color,
+                'price' => $item->price
             ]);
         }
     }
