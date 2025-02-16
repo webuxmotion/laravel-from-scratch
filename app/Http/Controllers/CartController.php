@@ -11,13 +11,13 @@ class CartController extends Controller
 {
     //
 
-    public function add(Request $request) 
+    public function add(Request $request)
     {
         $data = $request->all();
 
         $product_id = $data['id'];
         $quantity = $data['quantity'];
-        $mod_id = $data['mod'];
+        $mod_id = $data['mod'] ?? null;
 
         $product = null;
         $mod = null;
@@ -27,14 +27,21 @@ class CartController extends Controller
 
             if ($mod_id) {
                 $mod = Modification::where('id', $mod_id)
-                             ->where('product_id', $product_id)
-                             ->first();
+                    ->where('product_id', $product_id)
+                    ->first();
             }
         }
 
         $cart = new Cart();
         $cart->addToCart($product, $quantity, $mod);
 
-        return response()->json($data, 200);
+        return $this->getHtml();
+    }
+
+    public function getHtml()
+    {
+
+        // Return rendered HTML
+        return view('cart.cart-modal');
     }
 }

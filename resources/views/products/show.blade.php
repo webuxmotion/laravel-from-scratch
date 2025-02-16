@@ -1,7 +1,7 @@
 <x-layout>
 
     <x-breadcrumbs categoryId="{{ $category->id }}" title="{{ $product->title }}" />
-
+    
     <!--start-single-->
     <div class="single contact">
         <div class="container">

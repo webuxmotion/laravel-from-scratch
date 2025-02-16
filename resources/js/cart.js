@@ -16,8 +16,8 @@ $('body').on('click', '.js-add-to-cart-link', function(event) {
         success: function(res) {
             showCart(res);
         },
-        error: function() {
-            alert('Error! Try again later or try different products')
+        error: function(res) {
+            console.log(res);
         }
     });
 });
