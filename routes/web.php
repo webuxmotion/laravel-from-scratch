@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
@@ -79,4 +80,4 @@ Route::post('/change-currency', function (Request $request) {
     return back();
 })->name('currency.change');
 
-
+Route::post('/cart/add', [CartController::class, 'add']);

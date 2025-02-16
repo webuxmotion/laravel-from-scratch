@@ -79,7 +79,7 @@
                                 <div class="product-bottom">
                                     <h3>{{ $hit->title }}</h3>
                                     <p>Explore Now</p>
-                                    <h4><a class="add-to-cart-link" href="/cart/add?id={{ $hit->id }}"><i></i></a>
+                                    <h4><a class="js-add-to-cart-link" data-id="{{$hit->id}}" href="/cart/add?id={{ $hit->id }}"><i></i></a>
                                         <span class=" item_price">{{ $curr->symbol_left}}
                                             {{ $hit->price * $curr->value }}</span>
 										@if ($hit->old_price)

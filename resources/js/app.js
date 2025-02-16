@@ -1,7 +1,6 @@
 import './bootstrap';
-
-import './calculatorReact.jsx';
-import './kanuarLogo.jsx';
+import './ajaxSetup.js';
+import './cart.js';
 
 $('.available select').on('change', function() {
     let modeId = $(this).val();

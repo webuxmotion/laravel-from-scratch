@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/images/favicon.ico" />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @php
         $meta = globalData()->get('meta');
     @endphp
@@ -28,7 +30,7 @@
         content="{{ $meta && $meta->keywords ? $meta->keywords : "Shop keywords" }}" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--start-menu-->
-    <script src="/js/simpleCart.min.js"></script>
+    
     <link href="/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="/js/memenu.js"></script>
     <script>

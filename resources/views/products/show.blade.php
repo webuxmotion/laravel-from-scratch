@@ -59,7 +59,8 @@
                                 </div>
 
                                 <h5 class="item_price">{{ $curr->symbol_left }}
-                                    <span class="js-base-price" data-base-price="{{ showPrice($product->price * $curr->value) }}">{{ showPrice($product->price * $curr->value) }}</span>
+                                    <span class="js-base-price"
+                                        data-base-price="{{ showPrice($product->price * $curr->value) }}">{{ showPrice($product->price * $curr->value) }}</span>
                                 </h5>
                                 <p>{{ $product->content }}</p>
                                 @unless ($mods->isEmpty())
@@ -67,13 +68,13 @@
                                         <ul>
                                             <li>Color
                                                 <select>
-                                                    <option>Choose color</option>
+                                                    <option value="">Choose color</option>
                                                     @foreach ($mods as $item)
-                                                        <option
-                                                            data-title="{{$item->title}}"
+                                                        <option data-title="{{ $item->title }}"
                                                             data-price="{{ showPrice($item->price * $curr->value) }}"
-                                                            value="{{ $item->id}}"
-                                                        >{{ $item->title }} - {{ $curr->symbol_left }} {{ showPrice($item->price * $curr->value) }}</option>
+                                                            value="{{ $item->id }}">{{ $item->title }} -
+                                                            {{ $curr->symbol_left }}
+                                                            {{ showPrice($item->price * $curr->value) }}</option>
                                                     @endforeach
                                                 </select>
                                             </li>
@@ -97,7 +98,8 @@
                                         min="1" step="1">
                                 </div>
                                 <a id="productAdd" href="cart/add?id={{ $product->id }}"
-                                    class="add-cart item_add js-add-to-cart">ADD TO CART</a>
+                                    class="add-cart item_add js-add-to-cart-link" data-id="{{ $product->id }}">ADD TO
+                                    CART</a>
 
                             </div>
                         </div>
@@ -201,7 +203,8 @@
                                         <div class="product-bottom">
                                             <h3>{{ $item->title }}</h3>
                                             <p>Explore Now</p>
-                                            <h4><a class="item_add" href="#"><i></i></a> <span
+                                            <h4><a class="item_add js-add-to-cart-link" data-id="{{ $item->id }}"
+                                                    href="#"><i></i></a> <span
                                                     class=" item_price">{{ $curr->symbol_left }}
                                                     {{ showPrice($item->price * $curr->value) }}
                                                 </span></h4>
@@ -231,8 +234,9 @@
                                             <div class="product-bottom">
                                                 <h3>{{ $item->title }}</h3>
                                                 <p>Explore Now</p>
-                                                <h4><a class="item_add" href="#"><i></i></a> <span
-                                                        class=" item_price">{{ $curr->symbol_left }}
+                                                <h4><a class="item_add js-add-to-cart-link"
+                                                        data-id="{{ $item->id }}" href="#"><i></i></a>
+                                                    <span class=" item_price">{{ $curr->symbol_left }}
                                                         {{ showPrice($item->price * $curr->value) }}
                                                     </span></h4>
                                             </div>
