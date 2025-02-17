@@ -8,6 +8,7 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
+        
         $this->setMeta("Product: " . $product->title, $product->description, $product->keywords);
 
         $product->setRecentlyViewed($product->id);

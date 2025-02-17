@@ -38,6 +38,11 @@ class CartController extends Controller
         return $this->getHtml();
     }
 
+    public function show()
+    {
+        return $this->getHtml();
+    }
+
     public function getHtml()
     {
         // Return rendered HTML

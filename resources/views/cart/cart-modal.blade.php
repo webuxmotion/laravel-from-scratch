@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td>Total price:</td>
-                    <td colspan="4" class="text-right">{{ session('cart.sum') }}</td>
+                    <td colspan="4" class="text-right js-cart-modal-sum">{{ session('cart.sum') }}</td>
                 </tr>
             </tbody>
             </thead>

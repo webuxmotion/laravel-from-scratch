@@ -82,3 +82,4 @@ Route::post('/change-currency', function (Request $request) {
 
 Route::post('/cart/add', [CartController::class, 'add']);
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart/show', [CartController::class, 'show'])->name('cart.show');

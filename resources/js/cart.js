@@ -22,12 +22,36 @@ $('body').on('click', '.js-add-to-cart-link', function(event) {
     });
 });
 
+$('.js-cart-button').click(function(event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: '/cart/show',
+        method: 'get',
+        success: function(res) {
+            showCart(res);
+        },
+        error: function(res) {
+            console.log(res);
+        }
+    });
+});
+
+$('.js-close-modal').click(function() {
+    $('.modal').removeClass('show').addClass('fade');
+});
+
 function showCart(cart) {
     // delete class fade
     $('.modal').find('.modal-body').html(cart);
     $('.modal').addClass('show').removeClass('fade');
 
-    $('.js-close-modal').click(function() {
-        $('.modal').removeClass('show').addClass('fade');
-    });
+
+    const cartModalSum = $('.js-cart-modal-sum').text();
+
+    if (cartModalSum) {
+        $('.js-cart-header-sum').html(cartModalSum);
+    }
+    
+    
 }

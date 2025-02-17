@@ -3,8 +3,7 @@
     <div class="container">
         <div class="top-header-main">
             <div class="col-md-6 top-header-left">
-                
-                
+
                 <div class="drop">
                     <x-currency-selector />
 
@@ -20,13 +19,22 @@
                 </div>
             </div>
             <div class="col-md-6 top-header-left">
-                <div class="cart box_1">
-                    <a href="checkout.html">
-                         <div class="total">
-                            <span class="simpleCart_total"></span></div>
-                            <img src="/images/cart-1.png" alt="" />
+                <div class="cart box_1 js-cart-button">
+                    <a href="#">
+                        <div class="total">
+                            <span class="simpleCart_total"></span>
+                        </div>
+                        <img src="/images/cart-1.png" alt="" />
                     </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+
+                    <p><a href="javascript:;" class="simpleCart_empty js-cart-header-sum">
+                            @if (session('cart'))
+                                {{ session('cart')['currency']['symbol_left'] }}
+                                {{ session('cart')['sum'] }}
+                            @else
+                                Cart is empty
+                            @endif
+                        </a></p>
                     <div class="clearfix"> </div>
                 </div>
             </div>
