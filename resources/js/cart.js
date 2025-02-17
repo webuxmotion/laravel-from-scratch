@@ -23,5 +23,11 @@ $('body').on('click', '.js-add-to-cart-link', function(event) {
 });
 
 function showCart(cart) {
-    console.log(cart);
+    // delete class fade
+    $('.modal').find('.modal-body').html(cart);
+    $('.modal').addClass('show').removeClass('fade');
+
+    $('.js-close-modal').click(function() {
+        $('.modal').removeClass('show').addClass('fade');
+    });
 }

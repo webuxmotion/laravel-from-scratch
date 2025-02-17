@@ -40,7 +40,6 @@ class CartController extends Controller
 
     public function getHtml()
     {
-
         // Return rendered HTML
         return view('cart.cart-modal');
     }

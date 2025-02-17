@@ -17,7 +17,7 @@ class Cart extends Model
         $price = $mod->price ?? $product->price;
 
         $currencyValue = session('cart.currency.value');
-        $key = "cart.$id";
+        $key = "cart.items.$id";
 
         // Додаємо або оновлюємо товар у кошику
         $cartItem = session($key, []);
