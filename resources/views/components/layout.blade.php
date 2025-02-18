@@ -69,6 +69,7 @@
                     <p>Some text in the modal.</p>
                 </div>
                 <div class="modal-footer">
+                    <a href="/checkout" class="btn btn-primary js-checkout-button" data-dismiss="modal">Checkout</a>
                     <button type="button" class="btn btn-default js-close-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>

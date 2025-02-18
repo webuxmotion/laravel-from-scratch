@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -76,10 +77,13 @@ Route::post('/change-currency', function (Request $request) {
     $currency = $request->currency;
 
     setcookie('currency', $currency, time()+3600);
+    Cart::recalc($currency);
     
     return back();
 })->name('currency.change');
 
 Route::post('/cart/add', [CartController::class, 'add']);
-Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::delete('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
+// clear cart
+Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::get('/cart/show', [CartController::class, 'show'])->name('cart.show');

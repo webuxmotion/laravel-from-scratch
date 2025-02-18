@@ -1,4 +1,8 @@
 @if (session('cart'))
+    <!-- clear cart button, align right -->
+    <div class="text-right">
+        <a href="#" class="js-clear-cart">Clear cart</a>
+    </div>
     <div class="table-responsive cart-modal">
         <table class="table table-hover table-striped">
             <thead>
@@ -8,14 +12,14 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>
-                        <i class="fa fa-trash"></i>
+                        
                     </th>
                 </tr>
             <tbody>
                 @foreach (session('cart.items') as $id => $item)
                     <tr>
                         <td>
-                            <a href="/product/{{ $item['alias'] }}">
+                            <a href="/products/{{ $item['alias'] }}">
                                 <img src="/images/{{ $item['img'] }}" width="100" />
                             </a>
                         </td>
@@ -23,7 +27,7 @@
                         <td>{{ $item['quantity'] }}</td>
                         <td>{{ $item['price'] }}</td>
                         <td>
-                            <a href="{{ route('cart.remove', ['id' => $id]) }}">
+                            <a href="#" class="js-delete-cart-item" data-id="{{ $id }}">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>
