@@ -10,11 +10,13 @@ class Breadcrumbs extends Component
     public $breadcrumbs = [];
 
     public function __construct(
-        $categoryId,
+        $categoryId = null,
         $title = ''
     ) {
-        $cats = globalData('categories');
-        $breadcrumbs = $this->generateBreadcrumbs($categoryId, $cats);
+        if ($categoryId) {
+            $cats = globalData('categories');
+            $breadcrumbs = $this->generateBreadcrumbs($categoryId, $cats);
+        }
 
         $breadcrumbs[] = (object) [
             'title' => $title,

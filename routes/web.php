@@ -4,14 +4,18 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
+Route::get('/input-search', [SearchController::class, 'inputSearch']);
+Route::get('/search', [SearchController::class, 'search']);
 
-Route::get('/products/{product:alias}', [ProductController::class, 'show']);
+Route::get('/products/{product:alias}', [ProductController::class, 'show'])
+    ->name('products.show');
 
 /* WALLETS */
 // Show Wallets
