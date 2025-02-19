@@ -17,6 +17,10 @@ Route::get('/search', [SearchController::class, 'search']);
 Route::get('/products/{product:alias}', [ProductController::class, 'show'])
     ->name('products.show');
 
+// category products
+Route::get('/category/{category:alias}', [ProductController::class, 'categoryProducts'])
+    ->name('category.show');
+
 /* WALLETS */
 // Show Wallets
 Route::get('/wallets', [WalletController::class, 'index']);

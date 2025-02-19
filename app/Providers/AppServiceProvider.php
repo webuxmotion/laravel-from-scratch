@@ -7,6 +7,7 @@ use App\Services\GlobalDataService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
             globalData()->setData('categories', $categories);
         }
+        Paginator::useBootstrap();
+
         // Disable mass assignment protection
         Model::unguard();
     }
