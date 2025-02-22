@@ -5,11 +5,12 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+
+require base_path('routes/user.php');
 
 Route::get('/input-search', [SearchController::class, 'inputSearch']);
 Route::get('/search', [SearchController::class, 'search']);
@@ -39,7 +40,7 @@ Route::put('/wallets/{wallet}', [WalletController::class, 'update']);
 
 
 // Show Listings
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('home');;
 
 // Manage Listings
 Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
@@ -65,21 +66,6 @@ Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 /* USER */
 
-// Show Register/Create Form
-Route::get('/register', [UserController::class, 'create'])->middleware('guest');
-
-// Store User Data
-Route::post('/users', [UserController::class, 'store']);
-
-// Log User Out
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-
-// Show login form
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
-
-// Log User In
-Route::post('/users/login', [UserController::class, 'authenticate']);
-
 
 Route::post('/change-currency', function (Request $request) {
     $currency = $request->currency;
@@ -95,3 +81,7 @@ Route::delete('/cart/delete', [CartController::class, 'delete'])->name('cart.del
 // clear cart
 Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::get('/cart/show', [CartController::class, 'show'])->name('cart.show');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/cart/success', [CartController::class, 'success'])->name('cart.success');

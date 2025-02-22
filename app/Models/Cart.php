@@ -98,4 +98,9 @@ class Cart extends Model
             }
         }
     }
+
+    public static function getCartItems()
+    {
+        return session('cart.items', []);
+    }
 }

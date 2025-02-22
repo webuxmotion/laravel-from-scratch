@@ -7,18 +7,23 @@
                 <div class="drop">
                     <x-currency-selector />
 
-                    <div class="box1">
-                        <select tabindex="4" class="dropdown">
-                            <option value="" class="label">English :</option>
-                            <option value="1">English</option>
-                            <option value="2">French</option>
-                            <option value="3">German</option>
-                        </select>
-                    </div>
+
+
                     <div class="clearfix"></div>
                 </div>
             </div>
             <div class="col-md-6 top-header-left">
+                @auth
+                    <span>Welcome, {{ auth()->user()->name }}!</span>
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                @else
+                    <a href="/login">Login</a>
+                    <a href="/register">Registration</a>
+                @endauth
+
                 <div class="cart box_1 js-cart-button">
                     <a href="#">
                         <div class="total">

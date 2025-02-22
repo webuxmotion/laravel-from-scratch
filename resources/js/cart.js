@@ -64,21 +64,20 @@ $(".modal")
     });
 
 // clear cart click
-$(".modal")
-    .on("click", ".js-clear-cart", function (event) {
-        event.preventDefault();
+$(".modal").on("click", ".js-clear-cart", function (event) {
+    event.preventDefault();
 
-        $.ajax({
-            url: "/cart/clear",
-            method: "delete",
-            success: function (res) {
-                showCart(res);
-            },
-            error: function (res) {
-                console.log(res);
-            },
-        });
+    $.ajax({
+        url: "/cart/clear",
+        method: "delete",
+        success: function (res) {
+            showCart(res);
+        },
+        error: function (res) {
+            console.log(res);
+        },
     });
+});
 
 function showCart(cart) {
     // delete class fade
@@ -89,9 +88,9 @@ function showCart(cart) {
 
     if (cartModalSum) {
         $(".js-cart-header-sum").html(cartModalSum);
-        $('.js-checkout-button').show();
+        $(".js-checkout-button").show();
     } else {
         $(".js-cart-header-sum").text("Cart is empty");
-        $('.js-checkout-button').hide();
+        $(".js-checkout-button").hide();
     }
 }

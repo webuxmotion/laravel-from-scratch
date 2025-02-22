@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->createUsers();
         $this->createBrands();
         $this->createCategories();
         $this->createProducts();
@@ -28,6 +29,21 @@ class DatabaseSeeder extends Seeder
         $this->createRelatedProducts();
         $this->createGalleries();
         $this->createModifications();
+    }
+
+    public function createUsers(): void
+    {
+        User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'john@gmail.com',
+            'password' => bcrypt('111111')
+        ]);
+
+        User::factory()->create([
+            'name' => 'Ban Doe',
+            'email' => 'ban@gmail.com',
+            'password' => bcrypt('111111')
+        ]);
     }
 
     public function createBrands(): void
@@ -66,21 +82,6 @@ class DatabaseSeeder extends Seeder
         Product::factory(100)->create();
 
         Product::orderBy('id')->first()?->update(['hit' => 1]);
-    }
-
-    public function createUsers(): void
-    {
-        User::factory()->create([
-            'name' => 'John Doe',
-            'email' => 'john@gmail.com',
-            'password' => bcrypt('111111')
-        ]);
-
-        User::factory()->create([
-            'name' => 'Ban Doe',
-            'email' => 'ban@gmail.com',
-            'password' => bcrypt('111111')
-        ]);
     }
 
     public function createRelatedProducts(): void
