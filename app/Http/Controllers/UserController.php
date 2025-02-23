@@ -44,8 +44,19 @@ class UserController extends Controller
     {
         Auth::logout();
 
+        // Preserve the cart before logout
+        $cart = session('cart');
+
+        // Logout the user
+        Auth::logout();
+
+        // clear session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Restore the cart after logout
+        session(['cart' => $cart]);
+        
 
         return redirect('/')->with('message', 'User logged out!');
     }
@@ -77,5 +88,11 @@ class UserController extends Controller
             'email' => 'Invalid Credentials',
         ])
         ->withInput();
+    }
+
+    // Show Orders
+    public function orders()
+    {
+        return view('users.orders');
     }
 }

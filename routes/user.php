@@ -18,3 +18,8 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 // Log User In
 Route::post('/users/login', [UserController::class, 'authenticate']);
+
+// Show orders
+Route::get('/user/orders', [UserController::class, 'orders'])
+    ->middleware('auth')
+    ->name('user.orders');

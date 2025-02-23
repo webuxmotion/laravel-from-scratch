@@ -58,7 +58,7 @@ class Cart extends Model
     }
 
     // clear cart
-    public function clearCart()
+    public static function clearCart()
     {
         session()->forget('cart');
     }

@@ -35,16 +35,18 @@ class CartController extends Controller
         $data = request()->all();
         $cartData = [];
         $user = null;
+        $wasLoggedIn = false;
 
         if (auth()->user() == null) {
             $user = User::where('email', $data['email'])->first();
-
-        
 
             // if user exists, just check if password is correct
             if ($user) {
                 
                 if (password_verify($data['password'], $user->password)) {
+
+                    auth()->login($user);
+                    $wasLoggedIn = true;
                 } else {
 
                     return redirect()->back()
@@ -52,7 +54,6 @@ class CartController extends Controller
                         ->withInput();
                 }
             } else {
-                
                 // if user does not exist, create new user
                 $request->validate([
                     'password' => 'min:6|required',
@@ -63,6 +64,9 @@ class CartController extends Controller
                 $user->password = bcrypt($data['password']);
                 $user->name = 'User';
                 $user->save();
+
+                auth()->login($user);
+                $wasLoggedIn = true;
             }
         } else {
             $user = auth()->user();
@@ -75,9 +79,12 @@ class CartController extends Controller
 
         Order::mailOrder($order_id, $user->email);
 
+        Cart::clearCart();
+
         return redirect()->route('cart.success', [
             'order_id' => $order_id,
-            'email' => $user->email
+            'email' => $user->email,
+            'wasLoggedIn' => $wasLoggedIn,
         ]);
     }
 
@@ -133,8 +140,7 @@ class CartController extends Controller
     // clear cart
     public function clear()
     {
-        $cart = new Cart();
-        $cart->clearCart();
+        Cart::clearCart();
 
         return $this->getHtml();
     }
