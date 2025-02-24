@@ -54,6 +54,14 @@ class ProductController extends Controller
         $products = Product::whereIn('category_id', $categoryIds)
             ->paginate(6);
 
+        // if ajax request
+        if (request()->ajax()) {
+            // return request get params as json
+            $data = request()->all();
+
+            return $data;
+        }
+
         return view('products.category', [
             'category' => $category,
             'products' => $products,

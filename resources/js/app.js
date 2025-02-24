@@ -2,6 +2,7 @@ import './bootstrap';
 import './ajaxSetup.js';
 import './cart.js';
 import './search.js';
+import './filters.js';
 
 $('.available select').on('change', function() {
     let modeId = $(this).val();
@@ -15,8 +16,4 @@ $('.available select').on('change', function() {
     } else {
         basePriceEl.text(basePrice);
     }
-});
-
-$('.sky-form').on('click', function() {
-    $(".loader").show();
 });
