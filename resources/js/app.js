@@ -16,3 +16,7 @@ $('.available select').on('change', function() {
         basePriceEl.text(basePrice);
     }
 });
+
+$('.sky-form').on('click', function() {
+    $(".loader").show();
+});

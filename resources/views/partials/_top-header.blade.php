@@ -7,8 +7,6 @@
                 <div class="drop">
                     <x-currency-selector />
 
-
-
                     <div class="clearfix"></div>
                 </div>
             </div>

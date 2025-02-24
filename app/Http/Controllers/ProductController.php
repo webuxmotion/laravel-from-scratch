@@ -52,7 +52,7 @@ class ProductController extends Controller
 
         // Get products from the category and its children
         $products = Product::whereIn('category_id', $categoryIds)
-            ->paginate(4);
+            ->paginate(6);
 
         return view('products.category', [
             'category' => $category,

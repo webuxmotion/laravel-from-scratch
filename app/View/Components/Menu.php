@@ -40,7 +40,6 @@ class Menu extends Component
         return $tree;
     }
 
-    
     public function render()
     {
         $tree = $this->tree;

@@ -51,6 +51,7 @@
 </head>
 
 <body>
+    <x-loader />
 
     @include('partials._top-header')
     @include('partials._header')
@@ -60,6 +61,8 @@
     @include('cart.modal')
 
     @include('partials._footer')
+
+   
 
 </body>
 
