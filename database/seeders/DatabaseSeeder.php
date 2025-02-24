@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
         $this->createRelatedProducts();
         $this->createGalleries();
         $this->createModifications();
+
+        $this->call(AttributesSeeder::class);
     }
 
     public function createUsers(): void

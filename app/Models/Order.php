@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Mail\OrderSuccess;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
@@ -38,6 +40,11 @@ class Order extends Model
 
     public static function mailOrder($order_id, $user_email)
     {
+        $details = [
+            'name' => $user_email,
+            'order_id' => $order_id
+        ];
         
+        Mail::to($user_email)->send(new OrderSuccess($details));
     }
 }
