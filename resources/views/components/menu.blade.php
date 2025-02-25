@@ -1,6 +1,7 @@
 <div class="top-nav">
     <ul class="memenu skyblue">
         <li class="active"><a href="/">Home</a></li>
+        <li><a href="/category/all">All</a></li>
         @foreach ($tree as $node)
             @if ($node['children']->isNotEmpty())
                 <li class="grid"><a href="#">{{ $node->title }}</a>

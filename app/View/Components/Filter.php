@@ -20,4 +20,17 @@ class Filter extends Component
     {
         return view('components.filter');
     }
+
+    public static function getFilter()
+    {
+        $filter = null;
+
+        if (request()->has('filter')) {
+            $filter = request()->filter;
+            // replace all, except numters and commas
+            $filter = preg_replace('/[^0-9,]/', '', $filter);
+        }
+
+        return $filter;
+    }
 }

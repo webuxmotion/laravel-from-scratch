@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\View\Components\Filter;
 
 class ProductController extends Controller
 {
@@ -43,30 +44,50 @@ class ProductController extends Controller
             ->get('categories')
             ->firstWhere('alias', $alias);
 
-        if (!$category) {
-            abort(404);
+        if ($alias !== 'all') {
+            if (!$category) {
+                abort(404);
+            }
         }
 
-        // Get all child category IDs
-        $categoryIds = $this->getCategoryWithChildrenIds($category->id);
+        // if $category null
+        if (!$category) {
+            $category = (object) [
+                'title' => 'All products',
+                'description' => 'All products',
+                'keywords' => 'All products'
+            ];
+        }
 
-        // Get products from the category and its children
-        $products = Product::whereIn('category_id', $categoryIds)
-            ->paginate(6);
+        $curr = getCurr();
+
+        if ($alias == 'all') {
+            $products = Product::query();
+        } else {
+            // Get all child category IDs
+            $categoryIds = $this->getCategoryWithChildrenIds($category->id);
+            $products = Product::whereIn('category_id', $categoryIds);
+        }
+
+        $filter = Filter::getFilter();
+        $filterIds = $filter ? explode(',', $filter) : null;
+
+        if (!empty($filterIds)) {
+            $products->whereHas('attributeProducts', function ($query) use ($filterIds) {
+                $query->whereIn('attribute_id', $filterIds);
+            }, '=', count($filterIds)); 
+        }
 
         // if ajax request
         if (request()->ajax()) {
-            // return request get params as json
-            $data = request()->all();
+            $products = $products->paginate(8, ['*'], 'page', 1);  // Forces page 1
 
-            return $data;
+            return view('products.partials.product-list', compact('products', 'category', 'curr'));
         }
 
-        return view('products.category', [
-            'category' => $category,
-            'products' => $products,
-            'curr' => getCurr()
-        ]);
+        $products = $products->paginate(8)->appends(request()->query());
+
+        return view('products.category', compact('products', 'category', 'curr'));
     }
 
     /**

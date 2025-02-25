@@ -69,4 +69,9 @@ class Product extends Model
     {
         return $this->hasMany(Modification::class);
     }
+
+    public function attributeProducts()
+    {
+        return $this->hasMany(AttributeProduct::class, 'product_id', 'id');
+    }
 }
