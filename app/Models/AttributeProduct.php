@@ -10,4 +10,9 @@ class AttributeProduct extends Model
     {
         return $this->belongsTo(AttributeValue::class, 'attribute_value_id');
     }
+
+    public function attributeProducts()
+    {
+        return $this->hasMany(AttributeProduct::class);
+    }
 }

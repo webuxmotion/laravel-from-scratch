@@ -59,6 +59,8 @@ class ProductController extends Controller
             }
         }
 
+        $categoryIds = null;
+
         // if $category null
         if (!$category) {
             $category = (object) [
@@ -70,22 +72,12 @@ class ProductController extends Controller
 
         $curr = getCurr();
 
-        if ($alias == 'all') {
-            $products = Product::query();
-        } else {
-            // Get all child category IDs
+        if ($alias !== 'all') {
             $categoryIds = $this->getCategoryWithChildrenIds($category->id);
-            $products = Product::whereIn('category_id', $categoryIds);
         }
 
         $filter = Filter::getFilter();
         $filterIds = $filter ? explode(',', $filter) : null;
-
-        // if (!empty($filterIds)) {
-        //     $products->whereHas('attributeProducts', function ($query) use ($filterIds) {
-        //         $query->whereIn('attribute_value_id', $filterIds);
-        //     }, '=', count($filterIds));
-        // }
 
         $groups = AttributeGroup::with('attributeValues')->get();
 
@@ -96,26 +88,37 @@ class ProductController extends Controller
             // Get attribute values that belong to this group and are in $filterIds
             $filteredValues = collect($group->attributeValues)
                 ->whereIn('id', $filterIds)
-                ->pluck('value') // Get only values
+                ->pluck('id') // Get only values
                 ->toArray();
 
             if (!empty($filteredValues)) {
-                $mappedFilters[$group['title']] = $filteredValues;
+                $mappedFilters[$group['id']] = $filteredValues;
             }
         }
 
-        //dd($mappedFilters);
-
-        if (!empty($mappedFilters)) {
-            $products->whereHas('attributeProducts', function ($query) use ($mappedFilters) {
-                foreach ($mappedFilters as $group => $values) {
-                    $query->whereHas('attributeValue', function ($subQuery) use ($group, $values) {
-                        $subQuery->whereHas('attributeGroup', function ($groupQuery) use ($group) {
-                            $groupQuery->where('title', $group);
-                        })->whereIn('value', $values);
-                    });
-                }
-            });
+        if ($filterIds) {
+            $products = Product::select('p.*')  // Select all fields from products table
+                ->from('products as p')
+                ->join('attribute_products as ap', 'p.id', '=', 'ap.product_id')
+                ->join('attribute_values as av', 'ap.attribute_value_id', '=', 'av.id')
+                ->join('attribute_groups as ag', 'av.attribute_group_id', '=', 'ag.id')
+                ->where(function ($query) use ($mappedFilters) {
+                    foreach ($mappedFilters as $groupId => $values) {
+                        $query->orWhere(function ($subQuery) use ($groupId, $values) {
+                            $subQuery->where('ag.id', $groupId)
+                                ->whereIn('av.id', $values); // Replace with ids from mappedFilters
+                        });
+                    }
+                })
+                ->when(!empty($categoryIds), function ($query) use ($categoryIds) {
+                    return $query->whereIn('category_id', $categoryIds);  // Apply whereIn only if $categoryIds is not empty
+                })
+                ->groupBy('p.id')  // Ensure we group by product ID
+                ->havingRaw('COUNT(DISTINCT ag.id) = ?', [count($mappedFilters)]);
+        } else if ($alias == 'all') {
+            $products = Product::query();
+        } else if ($categoryIds) {
+            $products = Product::whereIn('category_id', $categoryIds);
         }
 
         // if ajax request
