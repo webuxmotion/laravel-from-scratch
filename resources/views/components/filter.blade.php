@@ -5,8 +5,8 @@
             <div class="row1 scroll-pane">
                 @foreach ($group->attributeValues as $value)
                     <label class="checkbox">
-                        <input type="checkbox" name="checkbox"
-                            value="{{ $value->id }}"><i></i>{{ $value->value }}</label>
+                        <input type="checkbox" name="checkbox" value="{{ $value->id }}"
+                            @if (in_array($value->id, $filters)) checked @endif><i></i>{{ $value->value }}</label>
                 @endforeach
             </div>
         </section>

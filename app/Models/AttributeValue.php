@@ -9,4 +9,9 @@ class AttributeValue extends Model
     public function attributeGroup() {
         return $this->belongsTo(AttributeGroup::class, 'attribute_group_id');
     }
+
+    public function attributeProducts()
+    {
+        return $this->hasMany(AttributeProduct::class, 'attribute_value_id');
+    }
 }

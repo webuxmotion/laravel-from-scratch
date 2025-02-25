@@ -16,7 +16,7 @@ return new class extends Migration
 
             // attribute_id
 
-            $table->foreignId('attribute_id')->constrained('attribute_values')->onDelete('cascade');
+            $table->foreignId('attribute_value_id')->constrained('attribute_values')->onDelete('cascade');
 
             // product_id
             $table->foreignId('product_id')->constrained()->onDelete('cascade');

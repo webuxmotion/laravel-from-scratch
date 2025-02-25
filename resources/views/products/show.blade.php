@@ -85,13 +85,15 @@
                                 @endunless
 
                                 <ul class="tag-men">
-                                    <li><span>Category</span>
-                                        <span class="women1">: <a
+                                    <li><span>Category: </span>
+                                        <span class="women1"> <a
                                                 href="/category/{{ $category->alias }}">{{ $category->title }}</a></span>
                                     </li>
-                                    <li><span>SKU</span>
-                                        <span class="women1">: CK09</span>
-                                    </li>
+                                    @foreach ($attributes as $attribute)
+                                        <li><span>{{ $attribute->attribute }}: </span>
+                                            <span class="women1"> {{ $attribute->value }}</span>
+                                        </li>
+                                    @endforeach
                                 </ul>
                                 <div class="quantity">
                                     <input value="1" type="number" name="quantity" id="" size="4"
@@ -110,19 +112,7 @@
                             <li class="item1"><a href="#"><img src="/images/arrow.png"
                                         alt="">Description</a>
                                 <ul>
-                                    <li class="subitem1"><a href="#">Lorem ipsum dolor sit amet, consectetuer
-                                            adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                            magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud
-                                            exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-                                            consequat.</a></li>
-                                    <li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in hendrerit
-                                            in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-                                            nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
-                                            praesent luptatum zzril delenit augue duis dolore</a></li>
-                                    <li class="subitem3"><a href="#">Mirum est notare quam littera gothica, quam
-                                            nunc putamus parum claram, anteposuerit litterarum formas humanitatis per
-                                            seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis
-                                            videntur parum clari, fiant sollemnes </a></li>
+                                    <li class="subitem1"><a href="#">{{ $product->content }}</a></li>
                                 </ul>
                             </li>
                             <li class="item2"><a href="#"><img src="/images/arrow.png" alt="">Additional

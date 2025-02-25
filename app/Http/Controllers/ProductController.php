@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttributeGroup;
 use App\Models\Product;
 use App\View\Components\Filter;
 
@@ -19,6 +20,13 @@ class ProductController extends Controller
 
         $relatedProducts = $product->relatedProducts->pluck('relatedProduct');
 
+        $attributes = $product->attributeProducts->map(function ($item) {
+            return (object) [
+                'attribute' => $item->attributeValue?->attributeGroup?->title ?? 'Unknown', // Назва групи атрибутів
+                'value' => $item->attributeValue?->value ?? 'No Value', // Значення атрибута
+            ];
+        });
+
         $gallery = $product->galleries->isEmpty()
             ? null
             : $product->galleries->pluck('img');
@@ -33,6 +41,7 @@ class ProductController extends Controller
             'related' => $relatedProducts,
             'gallery' => $gallery,
             'recently' => $recentlyViewed,
+            'attributes' => $attributes,
             'mods' => $mods,
             'curr' => getCurr()
         ]);
@@ -72,10 +81,41 @@ class ProductController extends Controller
         $filter = Filter::getFilter();
         $filterIds = $filter ? explode(',', $filter) : null;
 
-        if (!empty($filterIds)) {
-            $products->whereHas('attributeProducts', function ($query) use ($filterIds) {
-                $query->whereIn('attribute_id', $filterIds);
-            }, '=', count($filterIds));
+        // if (!empty($filterIds)) {
+        //     $products->whereHas('attributeProducts', function ($query) use ($filterIds) {
+        //         $query->whereIn('attribute_value_id', $filterIds);
+        //     }, '=', count($filterIds));
+        // }
+
+        $groups = AttributeGroup::with('attributeValues')->get();
+
+        $mappedFilters = [];
+
+        // Loop through groups
+        foreach ($groups as $group) {
+            // Get attribute values that belong to this group and are in $filterIds
+            $filteredValues = collect($group->attributeValues)
+                ->whereIn('id', $filterIds)
+                ->pluck('value') // Get only values
+                ->toArray();
+
+            if (!empty($filteredValues)) {
+                $mappedFilters[$group['title']] = $filteredValues;
+            }
+        }
+
+        //dd($mappedFilters);
+
+        if (!empty($mappedFilters)) {
+            $products->whereHas('attributeProducts', function ($query) use ($mappedFilters) {
+                foreach ($mappedFilters as $group => $values) {
+                    $query->whereHas('attributeValue', function ($subQuery) use ($group, $values) {
+                        $subQuery->whereHas('attributeGroup', function ($groupQuery) use ($group) {
+                            $groupQuery->where('title', $group);
+                        })->whereIn('value', $values);
+                    });
+                }
+            });
         }
 
         // if ajax request

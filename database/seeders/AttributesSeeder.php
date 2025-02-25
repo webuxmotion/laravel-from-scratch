@@ -47,7 +47,7 @@ class AttributesSeeder extends Seeder
             foreach($dbValues as $key => $values) {
                 AttributeProduct::create([
                     'product_id'   => $product->id,
-                    'attribute_id' => $values->random()->id,
+                    'attribute_value_id' => $values->random()->id,
                 ]);
             }
         }

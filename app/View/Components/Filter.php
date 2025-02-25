@@ -9,11 +9,15 @@ use Illuminate\View\Component;
 class Filter extends Component
 {
     public $groups;
-    public $attrs;
+    public $filters;
 
     public function __construct()
     {
         $this->groups = AttributeGroup::with('attributeValues')->get();
+        $filters = self::getFilter();
+        $filters = $filters ? explode(',', $filters) : [];
+        
+        $this->filters = $filters;
     }
 
     public function render()
