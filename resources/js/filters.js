@@ -27,10 +27,6 @@ $("body").on("change", '.w_sidebar input[type="checkbox"]', function () {
                 // Get the current search parameters
                 let params = new URLSearchParams(url.search);
 
-                // Remove the existing filter and page parameters to avoid duplication
-                params.delete("filter");
-                params.delete("page");
-
                 // Now set the new values
                 params.set("filter", data); // Set the 'filter' parameter
                 params.set("page", 1); // Set the 'page' parameter to 1
@@ -57,4 +53,11 @@ $("body").on("change", '.w_sidebar input[type="checkbox"]', function () {
 
         location.reload(true);
     }
+});
+
+$(document).ready(function () {
+    // Listen for browser back/forward events
+    window.onpopstate = function (event) {
+        location.reload();
+    };
 });

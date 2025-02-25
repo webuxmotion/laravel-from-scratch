@@ -75,14 +75,17 @@ class ProductController extends Controller
         if (!empty($filterIds)) {
             $products->whereHas('attributeProducts', function ($query) use ($filterIds) {
                 $query->whereIn('attribute_id', $filterIds);
-            }, '=', count($filterIds)); 
+            }, '=', count($filterIds));
         }
 
         // if ajax request
         if (request()->ajax()) {
-            $products = $products->paginate(8, ['*'], 'page', 1);  // Forces page 1
+            $products = $products->paginate(8, ['*'], 'page', 1)->appends(request()->query());  // Forces page 1
 
-            return view('products.partials.product-list', compact('products', 'category', 'curr'));
+            return response()->view('products.partials.product-list', compact('products', 'category', 'curr'))
+                ->header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+                ->header("Pragma", "no-cache")
+                ->header("Expires", "Fri, 01 Jan 1990 00:00:00 GMT");
         }
 
         $products = $products->paginate(8)->appends(request()->query());
